@@ -1,0 +1,60 @@
+{% extends 'layout.html' %} {% block title %}ACME Cart - Home{% endblock %} {% block header %}ACME Cart{% endblock %} {%
+block content %}
+<form action="/" method="POST">
+    <div class="form-group">
+        <button class="btn btn-success">Sync DB</button>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-8">
+        <h3>Products</h3>
+        <ul class="list-group">
+            {% for product in viewModel.products %}
+            <li class="list-group-item">
+                <form action="/orders/{{ viewModel.cart.id }}/lineItems" method="POST">
+                    {{ product.name }}
+                    <button class="btn btn-primary pull-right">Add to cart</button>
+                    <input type="hidden" value="{{ product.id }}" name="productId" />
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <h3>Your Cart</h3>
+        {% if errorMessage %}
+        <div class="alert alert-danger">address required</div>
+        {% endif %}
+        <div class="well">
+            {% if viewModel.cart.lineItems.length %}
+            <ul class="list-group">
+                {% for lineItem in viewModel.cart.lineItems %}
+                <li class="list-group-item">{{ lineItem.product.name }}<span class="label label-default pull-right">{{ lineItem.quantity }}</span>
+                    <form action="/orders/{{ viewModel.cart.id }}/lineItems/{{ lineItem.id }}?_method=DELETE" method="POST"><button class="btn btn-warning">Remove From Cart</button></form>
+                </li>
+                {% endfor %}
+            </ul>
+            <form action="/orders/{{ viewModel.cart.id }}?_method=PUT" method="POST">
+                <input type="hidden" name="isCart" value="false" />
+                <hr/>
+                <div class="form-group"><label>Address</label><input class="form-control" name="address" /></div>
+                <button class="btn btn-primary">Place order</button>
+            </form>
+            {% else %}
+            <span>The cart is empty</span>
+            {% endif %}
+        </div>
+        <h3>Your Orders</h3>
+        <ul class="list-group">
+            {% for order in viewModel.pastOrders %}
+            <li class="list-group-item">Order: {{ order.id }} {{ order.address }}
+                <ul class="list-group">
+                    {% for lineItem in order.lineItems %}
+                    <li class="list-group-item">{{ lineItem.product.name }}<span class="label label-default pull-right">{{ lineItem.quantity }}</span></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

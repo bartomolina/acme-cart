@@ -1,0 +1,31 @@
+{
+  "name": "acme-cart",
+  "version": "1.0.0",
+  "description": "1706-FSA-FLEX-NY Weekend assignment 05",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "start:dev": "nodemon -e html,js,css server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartomolina/acme-cart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bartomolina/acme-cart/issues"
+  },
+  "homepage": "https://github.com/bartomolina/acme-cart#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.4",
+    "method-override": "^2.3.9",
+    "pg": "^7.2.0",
+    "sequelize": "^4.7.5",
+    "swig": "^1.4.2"
+  }
+}
