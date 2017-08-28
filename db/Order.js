@@ -28,11 +28,11 @@ Order.updateFromRequestBody = (id, body) => {
     return Order.update(body, { where: { id } })
 }
 
-Order.addProductToCart = (id) => {
+Order.addProductToCart = (productId) => {
     return Order.getCart()
     .then(cart => {
-        lineItem = cart.lineItems.find(x => x.dataValues.productId === id)
-        return lineItem ? lineItem.set('quantity', lineItem.quantity + 1).save() : db.models.lineItem.create({ productId: id, orderId: cart.id })
+        lineItem = cart.lineItems.find(x => x.dataValues.productId === productId)
+        return lineItem ? lineItem.set('quantity', lineItem.quantity + 1).save() : db.models.lineItem.create({ productId, orderId: cart.id })
     })
 }
 
