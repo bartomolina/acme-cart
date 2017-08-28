@@ -30,10 +30,10 @@ Order.updateFromRequestBody = (id, body) => {
 
 Order.addProductToCart = (productId) => {
     return Order.getCart()
-    .then(cart => {
-        lineItem = cart.lineItems.find(x => x.dataValues.productId === productId)
-        return lineItem ? lineItem.set('quantity', lineItem.quantity + 1).save() : db.models.lineItem.create({ productId, orderId: cart.id })
-    })
+        .then(cart => {
+            lineItem = cart.lineItems.find(x => x.dataValues.productId === productId)
+            return lineItem ? lineItem.set('quantity', lineItem.quantity + 1).save() : db.models.lineItem.create({ productId, orderId: cart.id })
+        })
 }
 
 Order.destroyLineItem = (orderId, id) => {
